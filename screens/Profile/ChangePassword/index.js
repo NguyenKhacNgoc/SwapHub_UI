@@ -56,7 +56,7 @@ function ChangePassword() {
 
         } catch (error) {
             console.log(error)
-            ToastAndroid.show(error.response.data, ToastAndroid.SHORT)
+            ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT)
         }
         finally {
             setIsLoading(false)

@@ -149,17 +149,11 @@ function SignUp() {
       try {
         setIsLoadingCode(true)
         const responseP = await axios.get(`http://khacngoc.ddns.net:8080/api/checkexistPNB?phoneNumber=${phoneNumber}`)
-        if (responseP.status === 200) {
+        if (responseP.data.result === true) {
           setErrorPhoneNumber('Số điện thoại này đã tồn tại')
           ToastAndroid.show('Số điện thoại này đã tồn tại', ToastAndroid.SHORT)
         }
-      } catch (error) {
-
-        console.log(error)
-        if (error.message === 'Network Error') {
-          ToastAndroid.show('Lỗi máy chủ, vui lòng thử lại sau', ToastAndroid.SHORT)
-        }
-        else if (error.response.status === 404) {
+        else {
           const token = StringeeServices.getBearerToken()
           const data = {
             "from": {
@@ -201,6 +195,12 @@ function SignUp() {
           console.log(formattedRandomNum)
 
         }
+      } catch (error) {
+
+        console.log(error)
+        ToastAndroid.show('Lỗi máy chủ, vui lòng thử lại sau', ToastAndroid.SHORT)
+
+
       }
       finally {
         setIsLoadingCode(false)
@@ -251,16 +251,18 @@ function SignUp() {
 
         try {
           setIsLoading(true)
-          const response = await axios.post('http://khacngoc.ddns.net:8080/api/signup', user)
-          Alert.alert(response.data)
+          await axios.post('http://khacngoc.ddns.net:8080/api/signup', user)
+          Alert.alert('Đăng ký tài khoản thành công')
+          navigation.navigate('Login')
+
 
 
         } catch (error) {
           if (error.message === 'Network Error') {
-           ToastAndroid.show('Lỗi máy chủ, vui lòng thử lại sau', ToastAndroid.SHORT)
+            ToastAndroid.show('Lỗi máy chủ, vui lòng thử lại sau', ToastAndroid.SHORT)
           }
           else {
-            ToastAndroid.show(error.response.data, ToastAndroid.SHORT)
+            ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT)
           }
         }
         finally {

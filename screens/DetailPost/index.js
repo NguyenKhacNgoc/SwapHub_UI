@@ -263,12 +263,12 @@ function DetailPost({ route }) {
           },
         })
 
-        ToastAndroid.show(response.data, ToastAndroid.SHORT)
+        ToastAndroid.show('Thành công', ToastAndroid.SHORT)
         navigation.navigate('MainScreen')
 
       } catch (error) {
         console.log(error)
-        if (error.response.data) ToastAndroid.show(error.response.data, ToastAndroid.SHORT)
+        if (error.response.data) ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT)
         else ToastAndroid.show('Đã có lỗi phía máy chủ, chúng tôi đang cố gắng khắc phục', ToastAndroid.SHORT)
 
 
@@ -342,9 +342,9 @@ function DetailPost({ route }) {
           Authorization: `Bearer ${accessToken}`
         }
       })
-      if (response.data === 'liked') setIsLikePost(true)
-      else if (response.data === 'like') setIsLikePost(false)
-      else ToastAndroid.show('Bài viết không tồn tại', ToastAndroid.SHORT)
+      if (response.data.result === true) setIsLikePost(true)
+      else if (response.data.result === false) setIsLikePost(false)
+      else if(response.status === 404) ToastAndroid.show('Bài viết không tồn tại', ToastAndroid.SHORT)
 
     }
     catch (error) {

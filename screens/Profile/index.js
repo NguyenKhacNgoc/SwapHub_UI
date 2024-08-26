@@ -20,7 +20,7 @@ function Profile({ route }) {
             Authorization: `Bearer ${accessToken}`
           }
         })
-        setIn4(response.data)
+        setIn4(response.data.result)
 
       } catch (error) {
         console.log(error)

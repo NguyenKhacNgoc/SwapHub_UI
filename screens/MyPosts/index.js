@@ -56,7 +56,7 @@ function MyPosts() {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      setPosts(response.data);
+      setPosts(response.data.result);
     } catch (error) {
       console.log(error);
       // Handle error here (e.g., show an error message to the user)

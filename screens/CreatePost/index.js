@@ -103,13 +103,13 @@ function CreatePost() {
           "Content-Type": "multipart/form-data",
         },
       })
-      ToastAndroid.show(response.data, ToastAndroid.SHORT)
+      ToastAndroid.show('Thành công', ToastAndroid.SHORT)
       navigation.navigate('MainScreen')
 
 
     } catch (error) {
       console.error('Error', error)
-      ToastAndroid.show(error.response.data, ToastAndroid.SHORT)
+      ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT)
     }
     finally {
       setIsLoading(false)

@@ -57,7 +57,7 @@ function MainScreen() {
     try {
         
       const response = await axios.get('http://khacngoc.ddns.net:8080/api/getallPost')
-      setPosts(response.data)
+      setPosts(response.data.result)
 
 
     } catch (error) {
@@ -66,17 +66,7 @@ function MainScreen() {
 
   }
   useEffect(() => {
-    // const sseListen = () => {
-    //   const eventSource = new EventSource('http://khacngoc.ddns.net:8080/api/sse/post')
-    //   eventSource.addEventListener('post', (evt) => {
-    //     getAllPost()
-    //   })
-    //   return () => {
-    //     eventSource.close()
-    //   }
-    // }
     getAllPost()
-    //sseListen()
 
   }, [])
 

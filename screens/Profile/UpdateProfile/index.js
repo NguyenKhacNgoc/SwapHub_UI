@@ -132,7 +132,7 @@ function UpdateProfile() {
                     }
 
                 })
-                Alert.alert(response.data)
+                Alert.alert('Thành công')
                 navigation.navigate('Profile')
 
 

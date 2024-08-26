@@ -104,13 +104,12 @@ function Login() {
       }
       try {
         setIsLoading(true)
-        const response = await axios.post('http://khacngoc.ddns.net:8080/api/login', user)
+        const response = await axios.post('http://khacngoc.ddns.net:8080/api/auth/login', user)
         if (response.status === 200) {
-          await AsyncStorage.setItem('accessToken', response.data.token)
+          await AsyncStorage.setItem('accessToken', response.data.result.token)
           ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT)
           login()
           navigation.navigate('MainScreen')
-
 
         }
 
@@ -120,9 +119,7 @@ function Login() {
         try {
           if (error.message === 'Network Error') ToastAndroid.show('Network Error', ToastAndroid.SHORT)
           else {
-
-            if (error.response.status === 401) ToastAndroid.show('Tài khoản hoặc mật khẩu không chính xác', ToastAndroid.SHORT)
-            if (error.response.status === 403) ToastAndroid.show('Tài khoản của bạn đã bị khoá', ToastAndroid.SHORT)
+            ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT)
           }
 
         }

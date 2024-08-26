@@ -76,6 +76,7 @@ function CreateNewReport({ route }) {
     }
     const onImgDel = (img) => {
         setSelectedImg(selectedImg.filter((i) => i !== img))
+        
     }
     const handlePost = async () => {
         const accessToken = await AsyncStorage.getItem('accessToken')

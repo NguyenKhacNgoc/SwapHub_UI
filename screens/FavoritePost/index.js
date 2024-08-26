@@ -63,7 +63,7 @@ function FavoritePost() {
           Authorization: `Bearer ${accessToken}`
         }
       })
-      setPosts(response.data)
+      setPosts(response.data.result)
 
 
     } catch (error) {

@@ -31,19 +31,19 @@ const Search = () => {
     const handleSearch = async () => {
         try {
             const response = await axios.get(`http://khacngoc.ddns.net:8080/api/search/result?searchText=${searchText}`)
-            setProducts(response.data)
-            setCopyProducts(response.data)
+            setProducts(response.data.result)
+            setCopyProducts(response.data.result)
 
         } catch (error) {
             setProducts([])
         }
     }
     useEffect(() => {
-        const getCategory = async() => {
-            try{
+        const getCategory = async () => {
+            try {
                 const response = await axios.get('http://khacngoc.ddns.net:8080/api/getNameCategory')
-                setCategories(response.data)
-            }catch(error) {
+                setCategories(response.data.result)
+            } catch (error) {
                 console.log(error)
                 setCategories([])
             }
@@ -66,7 +66,7 @@ const Search = () => {
             </TouchableOpacity>
             <Text style={{ fontWeight: 'bold', fontSize: 16, marginTop: 10 }}>Thể loại</Text>
             <Picker
-                style={{padding:0}}
+                style={{ padding: 0 }}
                 selectedValue={selectedCategory}
                 onValueChange={(itemValue, itemIndex) => {
                     if (itemValue === 'Tất cả') {
@@ -81,7 +81,7 @@ const Search = () => {
                 }}
 
             >
-                <Picker.Item label="Chọn thể loại" value={null} enabled={false}/>
+                <Picker.Item label="Chọn thể loại" value={null} enabled={false} />
                 {categories.map((category) => (
                     <Picker.Item label={category} value={category} key={category} />
 
@@ -95,11 +95,9 @@ const Search = () => {
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => { navigation.navigate('DetailProduct', { post: item }) }}>
-
                         <View style={styles.productItem}>
                             <Image source={{ uri: item.images[0].secureUrl }} style={styles.productImage} />
                             <View>
-
                                 <Text style={styles.productName}>{item.title}</Text>
                                 <Text style={{ color: 'red' }}>{item.price}</Text>
                                 <Text>{item.profile.fullName}</Text>
